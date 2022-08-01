@@ -1,18 +1,14 @@
 class Console
   # очистить консоль
   def self.clear
-    if RUBY_PLATFORM =~ /mswin/i
-      system('cls')
-    else
-      system('clear')
-    end
+    Gem.win_platform? ? (system "cls") : (system "clear")
   end
 
   # меню игрока
   def self.menu(player, dealer)
-    result = Game.win?(player, dealer)
-
     clear
+
+    result = Game.win?(player, dealer)
 
     puts <<~END
       Игрок: #{dealer.name}
