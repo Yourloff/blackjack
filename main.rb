@@ -12,18 +12,17 @@ player = Player.new('Alexey', game)
 dealer = Dealer.new('Дилер', game)
 
 until choice == 'q'
-
   Console.menu(player, dealer)
 
   choice = STDIN.gets.chomp
 
-  unless game.status
-    case choice.downcase
-    when 'r'
-      game = Game.new
-      player = Player.new('Alexey', game)
-      dealer = Dealer.new('Дилер', game)
-      game.status = true
+  if game.status
+    case choice
+    when 'h'
+      player.hit
+    when 's'
+      dealer.hit
+      game.status = false
     when 'q'
       puts 'bye!'
       exit
@@ -31,12 +30,12 @@ until choice == 'q'
       puts 'Такой команды нет'
     end
   else
-    case choice
-    when 'h'
-      player.hit
-    when 's'
-      dealer.hit
-      game.status = false
+    case choice.downcase
+    when 'r'
+      game = Game.new
+      player = Player.new('Alexey', game)
+      dealer = Dealer.new('Дилер', game)
+      game.status = true
     when 'q'
       puts 'bye!'
       exit
